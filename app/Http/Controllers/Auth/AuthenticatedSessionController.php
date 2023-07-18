@@ -45,4 +45,20 @@ class AuthenticatedSessionController extends Controller
 
         return redirect('/');
     }
+    // 
+    public function login(Request $request) {
+        $validation = $request->validate([
+            'email' =>'required|email',
+            'password' =>'required',
+        ]);
+        if (auth()->attempt(array('email'=>$request->email, 'password'=>$request->password))) {
+            if (auth()->user()->is_admin==1) {
+                return redirect()->intended(RouteServiceProvider::Admin);
+            }else {
+                return redirect()->intended(RouteServiceProvider::HOME);
+            }
+        } else {
+            return back();
+        };
+    }
 }
