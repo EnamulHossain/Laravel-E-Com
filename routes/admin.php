@@ -5,6 +5,6 @@ use Illuminate\Support\Facades\Route;
 
 Route::middleware(['is_admin'])->group(function () {
     Route::get('check',function() {
-        echo "admin";
+        return view('admin.layout.app');
     })->name('check');
 });
