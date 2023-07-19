@@ -53,12 +53,12 @@ class AuthenticatedSessionController extends Controller
         ]);
         if (auth()->attempt(array('email'=>$request->email, 'password'=>$request->password))) {
             if (auth()->user()->is_admin==1) {
-                return redirect()->intended(RouteServiceProvider::Admin);
+                return redirect()->route('admin.dashboard')->with('success','Logged In');
             }else {
                 return redirect()->intended(RouteServiceProvider::HOME);
             }
         } else {
-            return back();
+            return back()->with('error', 'Invalid credentials.');
         };
     }
 }
