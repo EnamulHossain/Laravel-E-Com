@@ -434,7 +434,7 @@
 							<img src="{{asset ('')}}assets/images/demo/users/face11.jpg" class="w-32px h-32px rounded-pill" alt="">
 							<span class="status-indicator bg-success"></span>
 						</div>
-						<span class="d-none d-lg-inline-block mx-lg-2">Victoria</span>
+						<span class="d-none d-lg-inline-block mx-lg-2">{{Auth::user()->name}}</span>
 					</a>
 
 					<div class="dropdown-menu dropdown-menu-end">
@@ -530,16 +530,13 @@
 						<li class="nav-item nav-item-submenu">
 							<a href="#" class="nav-link">
 								<i class="ph-layout"></i>
-								<span>Layouts</span>
+								<span>Category</span>
 							</a>
 							<ul class="nav-group-sub collapse">
-								<li class="nav-item"><a href="index.html" class="nav-link active">Default layout</a></li>
-								<li class="nav-item"><a href="../../layout_2/full/index.html" class="nav-link">Layout 2</a></li>
-								<li class="nav-item"><a href="../../layout_3/full/index.html" class="nav-link">Layout 3</a></li>
-								<li class="nav-item"><a href="../../layout_4/full/index.html" class="nav-link">Layout 4</a></li>
-								<li class="nav-item"><a href="../../layout_5/full/index.html" class="nav-link">Layout 5</a></li>
-								<li class="nav-item"><a href="../../layout_6/full/index.html" class="nav-link">Layout 6</a></li>
-								<li class="nav-item"><a href="../../layout_7/full/index.html" class="nav-link disabled">Layout 7 <span class="badge align-self-center ms-auto">Coming soon</span></a></li>
+								<li class="nav-item"><a href="{{route('category.index')}}" class="nav-link">Caegory</a></li>
+								<li class="nav-item"><a href="../../layout_2/full/index.html" class="nav-link">Sub Caegory</a></li>
+								<li class="nav-item"><a href="../../layout_3/full/index.html" class="nav-link">Child Categorry</a></li>
+								<li class="nav-item"><a href="../../layout_4/full/index.html" class="nav-link">Brand</a></li>
 							</ul>
 						</li>
 						<li class="nav-item nav-item-submenu">
