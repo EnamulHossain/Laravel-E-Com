@@ -16,13 +16,13 @@
                     @method('PUT')
                 @endif
                 <div class="mb-3 row">
-                    <label class="col-form-label col-lg-3">Category</label>
+                    <label class="col-form-label col-lg-3">Child Category</label>
                     <div class="">
                         <select class="form-control select" name="category_id" id="category_id" data-minimum-results-for-search="Infinity">
                             <optgroup label="Category">
                                 @foreach($categories as $category)
                                     <option value="{{ $category->id }}"
-                                        @if(isset($childcategory) && $childcategory->subcategory_id === $subcategory->id)
+                                        @if(isset($childcategories) && $childcategories->category_id === $category->id)
                                             selected
                                         @endif
                                     >{{ $category->category_name }}</option>
@@ -39,7 +39,7 @@
                             <optgroup label="Category">
                                 @foreach($subcategories as $subcategory)
                                     <option value="{{ $subcategory->id }}"
-                                        @if(isset($childcategory) && $childcategory->subcategory_id === $subcategory->id)
+                                        @if(isset($childcategories) && $childcategories->subcategory_id === $subcategory->id)
                                             selected
                                         @endif
                                     >{{ $subcategory->subcategory_name }}</option>
@@ -52,18 +52,18 @@
 
                 <div class="mb-3">
                     <label class="form-label">Child Category Name</label>
-                    <input type="text" name="child_category_name" class="form-control" placeholder="Child Category Name" value="{{ isset($childcategory) ? $childcategory->child_category_name : '' }}">
+                    <input type="text" name="child_category_name" class="form-control" placeholder="Child Category Name" value="{{ isset($childcategories) ? $childcategories->child_category_name : '' }}">
                 </div>
 
                 <div class="mb-3">
                     <label class="form-label">Child Category Slug</label>
-                    <input type="text" name="child_category_slug" class="form-control" placeholder="Child Category Slug" value="{{ isset($childcategory) ? $childcategory->child_category_slug : '' }}">
+                    <input type="text" name="child_category_slug" class="form-control" placeholder="Child Category Slug" value="{{ isset($childcategories) ? $childcategories->child_category_slug : '' }}">
                 </div>
 
                 <div class="d-flex justify-content-between align-items-center">
                     <button type="reset" class="btn btn-light">Cancel</button>
                     <button type="submit" class="btn btn-primary">
-                        @if(isset($childcategory))
+                        @if(isset($childcategories))
                             Update <i class="ph-pencil-line ms-2"></i>
                         @else
                             Create <i class="ph-plus-circle-fill ms-2"></i>

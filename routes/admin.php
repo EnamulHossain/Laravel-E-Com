@@ -3,6 +3,7 @@
 use App\Http\Controllers\Admin\CategoryController;
 use App\Http\Controllers\Admin\ChildCategoryController;
 use App\Http\Controllers\Admin\SubCategoryController;
+use App\Http\Controllers\Admin\BrandController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('admin/login',function() {
@@ -17,4 +18,5 @@ Route::middleware(['is_admin'])->prefix('admin')->group(function () {
     Route::resource('category', CategoryController::class);
     Route::resource('subcategory',SubCategoryController::class);
     Route::resource('child_categories',ChildCategoryController::class);
+    Route::resource('brand',BrandController::class);
 });

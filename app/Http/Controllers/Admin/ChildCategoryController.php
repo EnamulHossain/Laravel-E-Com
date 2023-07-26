@@ -22,18 +22,22 @@ class ChildCategoryController extends Controller
     public function index()
     {
         if (request()->ajax()) {
-            $childCategories = ChildCategory::with('category', 'subcategory')->get();
-            // $childCategories = DB::table('child_categories')
-            //     ->join('categories', 'child_categories.category_id', '=', 'categories.id')
-            //     ->join('subcategories', 'child_categories.subcategory_id', '=', 'subcategories.id')
-            //     ->select('child_categories.*', 'categories.category_name', 'subcategories.subcategory_name')
-            //     ->get();
+            // $childCategories = ChildCategory::with('category', 'subcategory')->get();
+            $childCategories = DB::table('child_categories')
+                ->join('categories', 'child_categories.category_id', '=', 'categories.id')
+                ->join('subcategories', 'child_categories.subcategory_id', '=', 'subcategories.id')
+                ->select('child_categories.*', 'categories.category_name as category', 'subcategories.subcategory_name as subcategory')
+                ->get();
             return DataTables::of($childCategories)
+                ->addIndexColumn()
                 ->addColumn('action', function ($childCategory) {
                     return '
-                        <a href="' . route('child_categories.show', $childCategory->id) . '" class="btn btn-sm btn-primary">View</a>
-                        <a href="' . route('child_categories.edit', $childCategory->id) . '" class="btn btn-sm btn-warning">Edit</a>
-                        <button type="button" class="btn btn-sm btn-danger delete-btn" data-id="' . $childCategory->id . '">Delete</button>
+                        <a href="' . route('child_categories.edit', $childCategory->id) . '" class="ph-pen btn btn-primary ms-3"></a>
+                        <form action="' . route('child_categories.destroy', $childCategory->id) . '" method="POST" class="d-inline">
+                            ' . csrf_field() . '
+                            ' . method_field('DELETE') . '
+                            <button type="submit" class="ph-trash btn btn-primary ms-3" onclick="return confirm(\'Are you sure you want to delete?\')"></button>
+                        </form>
                     ';
                 })
                 ->rawColumns(['action'])
@@ -58,7 +62,12 @@ class ChildCategoryController extends Controller
      */
     public function store(Request $request)
     {
-        ChildCategory::created($request->all());
+        ChildCategory::create([
+            'category_id' => $request->input('category_id'),
+            'subcategory_id' => $request->input('subcategory_id'),
+            'child_category_name' => $request->input('child_category_name'),
+            'child_category_slug' => $request->input('child_category_slug'),
+        ]);
         return redirect()->route('child_categories.index')->with('success', 'Child Category created successfully!');
     }
 
@@ -75,22 +84,35 @@ class ChildCategoryController extends Controller
      */
     public function edit(string $id)
     {
-        //
+        $categories = Category::all();
+        $subcategories = SubCategory::all();
+        $childcategories = ChildCategory::find($id);
+        if (!$childcategories) {
+            return redirect()->back()->with('error', 'Category not found.');
+        }
+        return view('admin.childcategory.create_edit',compact('childcategories','categories','subcategories'));
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(Request $request, ChildCategory $ChildCategory)
     {
-        //
+        $ChildCategory->update([
+            'category_id' => $request->input('category_id'),
+            'subcategory_id' => $request->input('subcategory_id'),
+            'child_category_name' => $request->input('child_category_name'),
+            'child_category_slug' => $request->input('child_category_slug'),
+        ]);
+        return redirect()->route('child_categories.index')->with('success', 'Child Category Updated successfully!');
     }
 
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(string $id)
+
+    public function destroy($id)
     {
-        //
+        $childcategories = ChildCategory::find($id);
+        $childcategories->delete();
+
+        return redirect()->route('child_categories.index')->with('success', 'Child Category deleted successfully!');
     }
 }

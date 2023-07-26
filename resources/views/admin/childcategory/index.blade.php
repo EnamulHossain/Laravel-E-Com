@@ -7,7 +7,7 @@
     </div>
     <div class="card p-4">
         <div class="table-responsive">
-            <table class="table table-bordered" id="child-categories-table">
+            <table class="table datatable-pagination" id="child-categories-table">
                 <thead>
                     <tr>
                         <th>ID</th>
@@ -37,12 +37,12 @@
                         name: 'id'
                     },
                     {
-                        data: 'category.name',
-                        name: 'category.name'
+                        data: 'category',
+                        name: 'category'
                     },
                     {
-                        data: 'subcategory.name',
-                        name: 'subcategory.name'
+                        data: 'subcategory',
+                        name: 'subcategory'
                     },
                     {
                         data: 'child_category_name',
