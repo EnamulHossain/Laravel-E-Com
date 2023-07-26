@@ -16,5 +16,5 @@ Route::middleware(['is_admin'])->prefix('admin')->group(function () {
 
     Route::resource('category', CategoryController::class);
     Route::resource('subcategory',SubCategoryController::class);
-    Route::resource('childcategory',ChildCategoryController::class);
+    Route::resource('child_categories',ChildCategoryController::class);
 });

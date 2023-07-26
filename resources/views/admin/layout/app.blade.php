@@ -537,7 +537,7 @@
 							<ul class="nav-group-sub collapse">
 								<li class="nav-item"><a href="{{route('category.index')}}" class="nav-link">Caegory</a></li>
 								<li class="nav-item"><a href="{{route('subcategory.index')}}" class="nav-link">Sub Caegory</a></li>
-								<li class="nav-item"><a href="{{route('childcategory.index')}}" class="nav-link">Child Categorry</a></li>
+								<li class="nav-item"><a href="{{route('child_categories.index')}}" class="nav-link">Child Categorry</a></li>
 								<li class="nav-item"><a href="../../layout_4/full/index.html" class="nav-link">Brand</a></li>
 							</ul>
 						</li>

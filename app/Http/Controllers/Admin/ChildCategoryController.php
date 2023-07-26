@@ -7,7 +7,7 @@ use App\Models\Category;
 use App\Models\ChildCategory;
 use App\Models\SubCategory;
 use Illuminate\Http\Request;
-use DB;
+use Illuminate\Support\Facades\DB;
 use Yajra\DataTables\DataTables;
 
 class ChildCategoryController extends Controller
@@ -19,18 +19,27 @@ class ChildCategoryController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index(Request $request)
+    public function index()
     {
-        if ($request->ajax()) {
-            $childcategories = ChildCategory::with('subcategory.category')->get();
-            return DataTables::of($childcategories)
-                ->addColumn('action', function ($row) {
-                    $actionbtn = '';
-                    return $actionbtn;
+        if (request()->ajax()) {
+            $childCategories = ChildCategory::with('category', 'subcategory')->get();
+            // $childCategories = DB::table('child_categories')
+            //     ->join('categories', 'child_categories.category_id', '=', 'categories.id')
+            //     ->join('subcategories', 'child_categories.subcategory_id', '=', 'subcategories.id')
+            //     ->select('child_categories.*', 'categories.category_name', 'subcategories.subcategory_name')
+            //     ->get();
+            return DataTables::of($childCategories)
+                ->addColumn('action', function ($childCategory) {
+                    return '
+                        <a href="' . route('child_categories.show', $childCategory->id) . '" class="btn btn-sm btn-primary">View</a>
+                        <a href="' . route('child_categories.edit', $childCategory->id) . '" class="btn btn-sm btn-warning">Edit</a>
+                        <button type="button" class="btn btn-sm btn-danger delete-btn" data-id="' . $childCategory->id . '">Delete</button>
+                    ';
                 })
                 ->rawColumns(['action'])
                 ->make(true);
         }
+
         return view('admin.childcategory.index');
     }
 
@@ -50,7 +59,7 @@ class ChildCategoryController extends Controller
     public function store(Request $request)
     {
         ChildCategory::created($request->all());
-        return redirect()->route('childcategory.index')->with('success', 'Child Category created successfully!');
+        return redirect()->route('child_categories.index')->with('success', 'Child Category created successfully!');
     }
 
     /**

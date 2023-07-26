@@ -1,50 +1,87 @@
 @extends('admin.layout.app')
 
 @section('admin')
-<div>
-    <a href="{{ route('childcategory.create') }}" type="button" class="mx-2 my-3 btn btn-primary">Create Child Category</a>
-</div>
-<div class="card p-4">
-    <div class="table-responsive">
-        <table class="table ytable">
-            <thead>
-                <tr>
-                    <th>ID</th>
-                    <th>Sub Category Name</th>
-                    <th>Child Category Name</th>
-                    <th>Child Category Slug</th>
-                    <th>Action</th>
-                </tr>
-            </thead>
-            <tbody>
-                <!-- DataTables will render the table rows dynamically -->
-            </tbody>
-        </table>
+    <div>
+        <a href="{{ route('child_categories.create') }}" type="button" class="mx-2 my-3 btn btn-primary">Create Child
+            Category</a>
     </div>
-</div>
+    <div class="card p-4">
+        <div class="table-responsive">
+            <table class="table table-bordered" id="child-categories-table">
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Category</th>
+                        <th>Subcategory</th>
+                        <th>Name</th>
+                        <th>Slug</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+                <tbody>
 
-<!-- Add DataTables script -->
-@push('scripts')
-<script>
-    $(document).ready(function() {
-        $('.ytable').DataTable({
-            processing: true,
-            serverSide: true,
-            ajax: '{!! route('childcategory.index') !!}',
-            columns: [
-                { data: 'id', name: 'id' },
-                { data: 'subcategory.subcategory_name', name: 'subcategory.subcategory_name' },
-                { data: 'child_category_name', name: 'child_category_name' },
-                { data: 'child_category_slug', name: 'child_category_slug' },
-                { data: 'action', name: 'action', orderable: false, searchable: false },
-            ],
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <!-- Add DataTables script -->
+    <script>
+        $(document).ready(function() {
+            $('#child-categories-table').DataTable({
+                processing: true,
+                serverSide: true,
+                ajax: "{{ route('child_categories.index') }}",
+                columns: [{
+                        data: 'id',
+                        name: 'id'
+                    },
+                    {
+                        data: 'category.name',
+                        name: 'category.name'
+                    },
+                    {
+                        data: 'subcategory.name',
+                        name: 'subcategory.name'
+                    },
+                    {
+                        data: 'child_category_name',
+                        name: 'child_category_name'
+                    },
+                    {
+                        data: 'child_category_slug',
+                        name: 'child_category_slug'
+                    },
+                    {
+                        data: 'action',
+                        name: 'action',
+                        orderable: true,
+                        searchable: true
+                    },
+                ]
+            });
+
+            // Handle delete button click
+            $('#child-categories-table').on('click', '.delete-btn', function() {
+                let childCategoryId = $(this).data('id');
+
+                if (confirm('Are you sure you want to delete this child category?')) {
+                    $.ajax({
+                        url: "{{ route('child_categories.destroy', ':id') }}".replace(':id',
+                            childCategoryId),
+                        type: 'DELETE',
+                        headers: {
+                            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                        },
+                        success: function(data) {
+                            $('#child-categories-table').DataTable().ajax.reload();
+                        },
+                        error: function(data) {
+                            console.log('Error:', data);
+                        }
+                    });
+                }
+            });
         });
-    });
-</script>
-<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-<script src="https://cdn.datatables.net/1.10.25/js/jquery.dataTables.min.js"></script>
-<link rel="stylesheet" href="https://cdn.datatables.net/1.10.25/css/jquery.dataTables.min.css">
-
-@endpush
-
+    </script>
 @endsection
