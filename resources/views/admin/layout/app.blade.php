@@ -546,40 +546,16 @@
 						<li class="nav-item nav-item-submenu">
 							<a href="#" class="nav-link">
 								<i class="ph-swatches"></i>
-								<span>Themes</span>
+								<span>Settings</span>
 							</a>
 							<ul class="nav-group-sub collapse">
-								<li class="nav-item"><a href="index.html" class="nav-link active">Default</a></li>
-								<li class="nav-item"><a href="{{asset ('')}}LTR/material/full/index.html" class="nav-link disabled">Material <span class="badge align-self-center ms-auto">Coming soon</span></a></li>
-								<li class="nav-item"><a href="{{asset ('')}}LTR/clean/full/index.html" class="nav-link disabled">Clean <span class="badge align-self-center ms-auto">Coming soon</span></a></li>
+								<li class="nav-item"><a href="{{route ('seo.index')}}" class="nav-link">Seo Setting</a></li>
+								<li class="nav-item"><a href="{{route ('website.index')}}" class="nav-link">Website Setting</a></li>
+								<li class="nav-item"><a href="{{route ('page.index')}}" class="nav-link">Page Manage</a></li>
+								<li class="nav-item"><a href="{{route ('smtp.index')}}" class="nav-link">SMTP Setting</a></li>
+								<li class="nav-item"><a href="{{route ('payment.index')}}" class="nav-link">Payment Gatway</a></li>
+								<li class="nav-item"><a href="#" class="nav-link disabled">Clean <span class="badge align-self-center ms-auto">Coming soon</span></a></li>
 							</ul>
-						</li>
-						<li class="nav-item nav-item-submenu">
-							<a href="#" class="nav-link">
-								<i class="ph-note-blank"></i>
-								<span>Starter kit</span>
-							</a>
-							<ul class="nav-group-sub collapse">
-								<li class="nav-item"><a href="../seed/layout_static.html" class="nav-link">Static layout</a></li>
-								<li class="nav-item"><a href="../seed/layout_no_header.html" class="nav-link">No header</a></li>
-								<li class="nav-item"><a href="../seed/layout_no_footer.html" class="nav-link">No footer</a></li>
-								<li class="nav-item-divider"></li>
-								<li class="nav-item"><a href="../seed/layout_fixed_header.html" class="nav-link">Fixed header</a></li>
-								<li class="nav-item"><a href="../seed/layout_fixed_footer.html" class="nav-link">Fixed footer</a></li>
-								<li class="nav-item-divider"></li>
-								<li class="nav-item"><a href="../seed/layout_2_sidebars_1_side.html" class="nav-link">2 sidebars on 1 side</a></li>
-								<li class="nav-item"><a href="../seed/layout_2_sidebars_2_sides.html" class="nav-link">2 sidebars on 2 sides</a></li>
-								<li class="nav-item"><a href="../seed/layout_3_sidebars.html" class="nav-link">3 sidebars</a></li>
-								<li class="nav-item-divider"></li>
-								<li class="nav-item"><a href="../seed/layout_boxed_page.html" class="nav-link">Boxed page</a></li>
-								<li class="nav-item"><a href="../seed/layout_boxed_content.html" class="nav-link">Boxed content</a></li>
-							</ul>
-						</li>
-						<li class="nav-item">
-							<a href="{{asset ('')}}../docs/other_changelog.html" class="nav-link">
-								<i class="ph-list-numbers"></i>
-								<span>Changelog</span>
-							</a>
 						</li>
 					</ul>
 				</div>
