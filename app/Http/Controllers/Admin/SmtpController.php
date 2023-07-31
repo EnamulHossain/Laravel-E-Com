@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class SmtpController extends Controller
 {
@@ -12,7 +13,8 @@ class SmtpController extends Controller
      */
     public function index()
     {
-        //
+        $data=DB::table('smtp')->first();
+        return view('admin.setting.smtp',compact('data'));
     }
 
     /**
@@ -52,7 +54,14 @@ class SmtpController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
+        $data=array();
+        $data['mailer']=$request->mailer ;
+        $data['host']=$request->host ;
+        $data['port']=$request->port ;
+        $data['user_name']=$request->user_name ;
+        $data['password']=$request->password ;
+        DB::table('smtp')->where('id',$id)->update($data);
+        return redirect()->back()->with('success', 'SMTP data updated successfully.');
     }
 
     /**
