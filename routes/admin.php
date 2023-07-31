@@ -34,8 +34,8 @@ Route::middleware(['is_admin'])->prefix('admin')->group(function () {
         Route::post('seo/{seo}', [SeoController::class, 'update'])->name('seo.update');
         Route::get('smtp', [SmtpController::class, 'index'])->name('smtp.index');
         Route::post('smtp/{smtp}', [SmtpController::class, 'update'])->name('smtp.update');
-        Route::resource('website',WebsiteController::class);
         Route::resource('page',PageController::class);
+        Route::resource('website',WebsiteController::class);
         Route::resource('payment',PaymentController::class);
     });
 });
