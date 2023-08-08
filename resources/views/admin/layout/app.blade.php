@@ -543,6 +543,12 @@
 								<li class="nav-item"><a href="{{route('brand.index')}}" class="nav-link">Brand</a></li>
 							</ul>
 						</li>
+						<li class="nav-item">
+							<a href="{{route('pickup-point.index')}}" class="nav-link">
+								<i class="ph-layout"></i>
+								<span>Pickup Point</span>
+							</a>
+						</li>
 						<li class="nav-item nav-item-submenu">
 							<a href="#" class="nav-link">
 								<i class="ph-swatches"></i>
@@ -550,7 +556,7 @@
 							</a>
 							<ul class="nav-group-sub collapse">
 								<li class="nav-item"><a href="{{route ('seo.index')}}" class="nav-link">Seo Setting</a></li>
-								<li class="nav-item"><a href="{{route ('website.index')}}" class="nav-link">Website Setting</a></li>
+								{{-- <li class="nav-item"><a href="{{route ('website.index')}}" class="nav-link">Website Setting</a></li> --}}
 								<li class="nav-item"><a href="{{route ('page.index')}}" class="nav-link">Page Manage</a></li>
 								<li class="nav-item"><a href="{{route ('smtp.index')}}" class="nav-link">SMTP Setting</a></li>
 								<li class="nav-item"><a href="{{route ('payment.index')}}" class="nav-link">Payment Gatway</a></li>

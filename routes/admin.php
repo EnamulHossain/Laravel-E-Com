@@ -4,11 +4,14 @@ use App\Http\Controllers\Admin\CategoryController;
 use App\Http\Controllers\Admin\ChildCategoryController;
 use App\Http\Controllers\Admin\SubCategoryController;
 use App\Http\Controllers\Admin\BrandController;
+use App\Http\Controllers\Admin\CouponController;
 use App\Http\Controllers\Admin\PageController;
 use App\Http\Controllers\Admin\PaymentController;
+use App\Http\Controllers\Admin\PickupController;
 use App\Http\Controllers\Admin\SeoController;
 use App\Http\Controllers\Admin\SettingController;
 use App\Http\Controllers\Admin\SmtpController;
+use App\Http\Controllers\Admin\WarehouseController;
 use App\Http\Controllers\Admin\WebsiteController;
 use Illuminate\Support\Facades\Route;
 
@@ -26,6 +29,9 @@ Route::middleware(['is_admin'])->prefix('admin')->group(function () {
     Route::resource('subcategory',SubCategoryController::class);
     Route::resource('child_categories',ChildCategoryController::class);
     Route::resource('brand',BrandController::class);
+    Route::resource('warehouse',WarehouseController::class);
+    Route::resource('coupon',CouponController::class);
+    Route::resource('pickup-point',PickupController::class);
 
     //Setting
     Route::group(['prifix'=> 'setting'],function(){
@@ -35,7 +41,7 @@ Route::middleware(['is_admin'])->prefix('admin')->group(function () {
         Route::get('smtp', [SmtpController::class, 'index'])->name('smtp.index');
         Route::post('smtp/{smtp}', [SmtpController::class, 'update'])->name('smtp.update');
         Route::resource('page',PageController::class);
-        Route::resource('website',WebsiteController::class);
+        Route::resource('website-setting',SettingController::class);
         Route::resource('payment',PaymentController::class);
     });
 });
