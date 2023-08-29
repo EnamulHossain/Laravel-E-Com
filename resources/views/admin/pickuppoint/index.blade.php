@@ -31,10 +31,10 @@
                 ajax: "{{ route('pickup-point.index') }}",
                 columns: [
                     { data: 'DT_RowIndex', name: 'DT_RowIndex' },
-                    { data: 'pickup_point_name', name: '	pickup_point_name' },
-                    { data: 'pickup_point_address', name: 'pickup_point_address' },
-                    { data: 'pickup_point_phone', name: 'pickup_point_phone'},
-                    { data: 'pickup_point_phone2', name: 'pickup_point_phone2'},
+                    { data: 'pickup_points_name', name: '	pickup_points_name' },
+                    { data: 'pickup_points_address', name: 'pickup_points_address' },
+                    { data: 'pickup_points_phone', name: 'pickup_points_phone'},
+                    { data: 'pickup_points_phone2', name: 'pickup_points_phone2'},
                     { data: 'action', name: 'action', orderable: true, searchable: true }
                 ]
             });
@@ -62,22 +62,22 @@
     
                     <div class="mb-3">
                         <label class="form-label"> Pickup Point Name</label>
-                        <input type="text" name="pickup_point_name" class="form-control" placeholder=" pickup_point_name">
+                        <input type="text" name="pickup_points_name" class="form-control" placeholder=" pickup_points_name">
                     </div>
     
                     <div class="mb-3">
                         <label class="form-label">Pickup Point Address</label>
-                        <input type="text" name="pickup_point_address" class="form-control" placeholder="pickup_point_address">
+                        <input type="text" name="pickup_points_address" class="form-control" placeholder="pickup_points_address">
                     </div>
     
                     <div class="mb-3">
                         <label class="form-label">Phone</label>
-                        <input type="text" name="pickup_point_phone" class="form-control" placeholder="pickup_point_address">
+                        <input type="text" name="pickup_points_phone" class="form-control" placeholder="pickup_points_address">
                     </div>
 
                     <div class="mb-3">
                         <label class="form-label">Phone Two</label>
-                        <input type="text" name="pickup_point_phone2" class="form-control" placeholder="pickup_point_phone_Second">
+                        <input type="text" name="pickup_points_phone2" class="form-control" placeholder="pickup_points_phone_Second">
                     </div>
     
                     <div class="d-flex justify-content-between align-items-center">
@@ -123,10 +123,10 @@
                 ajax: "{{ route('pickup-point.index') }}",
                 columns: [
                     { data: 'DT_RowIndex', name: 'DT_RowIndex' },
-                    { data: 'pickup_point_name', name: '	pickup_point_name' },
-                    { data: 'pickup_point_address', name: 'pickup_point_address' },
-                    { data: 'pickup_point_phone', name: 'pickup_point_phone'},
-                    { data: 'pickup_point_phone2', name: 'pickup_point_phone2'},
+                    { data: 'pickup_points_name', name: '	pickup_points_name' },
+                    { data: 'pickup_points_address', name: 'pickup_points_address' },
+                    { data: 'pickup_points_phone', name: 'pickup_points_phone'},
+                    { data: 'pickup_points_phone2', name: 'pickup_points_phone2'},
                     { data: 'action', name: 'action', orderable: true, searchable: true }
                 ]
         });

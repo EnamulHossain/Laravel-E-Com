@@ -19,15 +19,21 @@
                 <div class="mb-3">
                     <label class="form-label">Category Name</label>
                     <input type="text" name="category_name" class="form-control" placeholder="Category Name" value="{{ isset($category) ? $category->category_name : '' }}">
+                    @error('category_name')
+                        <div class="error">{{ $message }}</div>
+                    @enderror
                 </div>
 
                 <div class="mb-3">
                     <label class="form-label">Category Slug</label>
                     <input type="text" name="category_slug" class="form-control" placeholder="Category Slug" value="{{ isset($category) ? $category->category_slug : '' }}">
+                    @error('category_slug')
+                        <div class="error">{{ $message }}</div>
+                    @enderror
                 </div>
 
                 <div class="d-flex justify-content-between align-items-center">
-                    <button type="reset" class="btn btn-light">Cancel</button>
+                    <a type="" href="{{route('category.index')}}" class="btn btn-light">Cancel</a>
                     <button type="submit" class="btn btn-primary">
                         @if(isset($category))
                             Update <i class="ph-pencil-line ms-2"></i>

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\CategoryRequest;
 use App\Models\Category;
 use Illuminate\Http\Request;
 
@@ -13,34 +14,33 @@ class CategoryController extends Controller
         $this->middleware('auth');
     }
 
+    
     public function index()
     {
         $categories = Category::all();
         return view('admin.category.index', compact('categories'));
     }
 
+
     public function create()
     {
         return view('admin.category.create_edit');
     }
 
-    public function store(Request $request)
-    {
-        // Validate the incoming request data
-        $request->validate([
-            'category_name' => 'required|max:255',
-            'category_slug' => 'required|unique:categories,category_slug|max:255',
-        ]);
 
-        // If the validation passes, create a new category with the validated data
-        $category = Category::create([
+    public function store(CategoryRequest $request)
+    {
+        if ($request->fails()) {
+            return redirect()->back()->withErrors($request->errors())->withInput();
+        }
+
+        Category::create([
             'category_name' => $request->input('category_name'),
             'category_slug' => $request->input('category_slug'),
         ]);
-
-        // Optionally, you can add a success message and redirect the user to a specific page
         return redirect()->route('category.index')->with('success', 'Category created successfully!');
     }
+
 
     public function edit($id)
     {
@@ -53,23 +53,20 @@ class CategoryController extends Controller
         return view('admin.category.create_edit', compact('category'));
     }
 
-    public function update(Request $request, Category $category)
-    {
-        // Validate the incoming request data
-        $request->validate([
-            'category_name' => 'required|max:255',
-            'category_slug' => 'required|unique:categories,category_slug,' . $category->id . '|max:255',
-        ]);
 
-        // Update the category with the validated data
+    public function update(CategoryRequest $request, Category $category)
+    {
+        if ($request->fails()) {
+            return redirect()->back()->withErrors($request->errors())->withInput();
+        }
+
         $category->update([
             'category_name' => $request->input('category_name'),
             'category_slug' => $request->input('category_slug'),
         ]);
-
-        // Optionally, you can add a success message and redirect the user to a specific page
         return redirect()->route('category.index')->with('success', 'Category updated successfully!');
     }
+
 
     public function destroy(Category $category)
     {

@@ -11,12 +11,12 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('pickup_point', function (Blueprint $table) {
+        Schema::create('pickup_points', function (Blueprint $table) {
             $table->id();
-            $table->string('pickup_point_name');
-            $table->string('pickup_point_address');
-            $table->string('pickup_point_phone');
-            $table->string('pickup_point_phone2')->nullable();
+            $table->string('pickup_points_name');
+            $table->string('pickup_points_address');
+            $table->string('pickup_points_phone');
+            $table->string('pickup_points_phone2')->nullable();
             $table->timestamps();
         });
     }
@@ -26,6 +26,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('pickup_point');
+        Schema::dropIfExists('pickup_points');
     }
 };

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\ChildCategoryRequest;
 use App\Models\Category;
 use App\Models\ChildCategory;
 use App\Models\SubCategory;
@@ -60,7 +61,7 @@ class ChildCategoryController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(ChildCategoryRequest $request)
     {
         ChildCategory::create([
             'category_id' => $request->input('category_id'),
@@ -96,7 +97,7 @@ class ChildCategoryController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, ChildCategory $ChildCategory)
+    public function update(ChildCategoryRequest $request, ChildCategory $ChildCategory)
     {
         $ChildCategory->update([
             'category_id' => $request->input('category_id'),

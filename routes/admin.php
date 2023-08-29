@@ -8,6 +8,7 @@ use App\Http\Controllers\Admin\CouponController;
 use App\Http\Controllers\Admin\PageController;
 use App\Http\Controllers\Admin\PaymentController;
 use App\Http\Controllers\Admin\PickupController;
+use App\Http\Controllers\Admin\ProductController;
 use App\Http\Controllers\Admin\SeoController;
 use App\Http\Controllers\Admin\SettingController;
 use App\Http\Controllers\Admin\SmtpController;
@@ -32,6 +33,7 @@ Route::middleware(['is_admin'])->prefix('admin')->group(function () {
     Route::resource('warehouse',WarehouseController::class);
     Route::resource('coupon',CouponController::class);
     Route::resource('pickup-point',PickupController::class);
+    Route::resource('product',ProductController::class);
 
     //Setting
     Route::group(['prifix'=> 'setting'],function(){

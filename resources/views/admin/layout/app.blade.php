@@ -24,15 +24,15 @@
 	<script src="{{asset ('assets/js/app.js')}}"></script>
 	<script src="{{asset ('assets/demo/pages/dashboard.js')}}"></script>
 	<script src="{{asset ('assets/demo/charts/pages/dashboard/streamgraph.js')}}"></script>
-	{{-- <script src="{{asset ('assets/demo/charts/pages/dashboard/sparklines.js')}}"></script> --}}
-	{{-- <script src="{{asset ('assets/demo/charts/pages/dashboard/lines.js')}}"></script>	 --}}
-	{{-- <script src="{{asset ('assets/demo/charts/pages/dashboard/areas.js')}}"></script> --}}
-	{{-- <script src="{{asset ('assets/demo/charts/pages/dashboard/donuts.js')}}"></script> --}}
-	{{-- <script src="{{asset ('assets/demo/charts/pages/dashboard/bars.js')}}"></script> --}}
+	<script src="{{asset ('assets/demo/charts/pages/dashboard/sparklines.js')}}"></script>
+	<script src="{{asset ('assets/demo/charts/pages/dashboard/lines.js')}}"></script>	
+	<script src="{{asset ('assets/demo/charts/pages/dashboard/areas.js')}}"></script>
+	<script src="{{asset ('assets/demo/charts/pages/dashboard/donuts.js')}}"></script>
+	<script src="{{asset ('assets/demo/charts/pages/dashboard/bars.js')}}"></script>
 	<script src="{{asset ('assets/demo/charts/pages/dashboard/progress.js')}}"></script>
-	{{-- <script src="{{asset ('assets/demo/charts/pages/dashboard/heatmaps.js')}}"></script> --}}
-	{{-- <script src="{{asset ('assets/demo/charts/pages/dashboard/pies.js')}}"></script> --}}
-	{{-- <script src="{{asset ('assets/demo/charts/pages/dashboard/bullets.js')}}"></script> --}}
+	<script src="{{asset ('assets/demo/charts/pages/dashboard/heatmaps.js')}}"></script>
+	<script src="{{asset ('assets/demo/charts/pages/dashboard/pies.js')}}"></script>
+	<script src="{{asset ('assets/demo/charts/pages/dashboard/bullets.js')}}"></script>
 	<!-- /theme JS files -->
 
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
@@ -54,8 +54,8 @@
 
 			<div class="navbar-brand flex-1 flex-lg-0">
 				<a href="index.html" class="d-inline-flex align-items-center">
-					<img src="{{asset ('')}}assets/images/logo_icon.svg" alt="">
-					<img src="{{asset ('')}}assets/images/logo_text_light.svg" class="d-none d-sm-inline-block h-16px ms-3" alt="">
+					<img src="{{asset ('assets/images/logo_icon.svg')}}" alt="">
+					<img src="{{asset ('assets/images/logo_text_light.svg')}}" class="d-none d-sm-inline-block h-16px ms-3" alt="">
 				</a>
 			</div>
 
@@ -541,6 +541,16 @@
 								<li class="nav-item"><a href="{{route('subcategory.index')}}" class="nav-link">Sub Caegory</a></li>
 								<li class="nav-item"><a href="{{route('child_categories.index')}}" class="nav-link">Child Categorry</a></li>
 								<li class="nav-item"><a href="{{route('brand.index')}}" class="nav-link">Brand</a></li>
+							</ul>
+						</li>
+						<li class="nav-item nav-item-submenu">
+							<a href="#" class="nav-link">
+								<i class="ph-layout"></i>
+								<span>Product</span>
+							</a>
+							<ul class="nav-group-sub collapse">
+								<li class="nav-item"><a href="{{route('category.index')}}" class="nav-link">New Product</a></li>
+								<li class="nav-item"><a href="{{route('category.index')}}" class="nav-link">Product Manage</a></li>
 							</ul>
 						</li>
 						<li class="nav-item">

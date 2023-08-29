@@ -17,7 +17,7 @@ class PickupController extends Controller
     public function index()
     {
         if (request()->ajax()) {
-            $pickups = DB::table('pickup_point')->select('pickup_point.*')->get();
+            $pickups = DB::table('pickup_points')->select('pickup_points.*')->get();
             return DataTables::of($pickups)
                 ->addIndexColumn()
                 ->addColumn('action', function ($pickup) {
@@ -50,13 +50,13 @@ class PickupController extends Controller
     public function store(Request $request)
     {
         $pickupPointData = [
-            'pickup_point_name' => $request->input('pickup_point_name'),
-            'pickup_point_address' => $request->input('pickup_point_address'),
-            'pickup_point_phone' => $request->input('pickup_point_phone'),
-            'pickup_point_phone2' => $request->input('pickup_point_phone2'),
+            'pickup_points_name' => $request->input('pickup_points_name'),
+            'pickup_points_address' => $request->input('pickup_points_address'),
+            'pickup_points_phone' => $request->input('pickup_points_phone'),
+            'pickup_points_phone2' => $request->input('pickup_points_phone2'),
         ];
     
-        DB::table('pickup_point')->insert($pickupPointData);
+        DB::table('pickup_points')->insert($pickupPointData);
     
         return response()->json('success');
     }
@@ -90,7 +90,7 @@ class PickupController extends Controller
      */
     public function destroy(string $id)
     {
-        DB::table('pickup_point')->where('id', $id)->delete();
+        DB::table('pickup_points')->where('id', $id)->delete();
         return response()->json('success');
     }
 }

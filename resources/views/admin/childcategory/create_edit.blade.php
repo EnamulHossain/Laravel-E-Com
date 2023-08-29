@@ -29,6 +29,11 @@
                                 @endforeach
                             </optgroup>
                         </select>
+                        <div class="error">
+                            @error('category_id')
+                                {{ $message }}
+                            @enderror
+                        </div>
                     </div>
                 </div>
                 
@@ -46,6 +51,11 @@
                                 @endforeach
                             </optgroup>
                         </select>
+                        <div class="error">
+                            @error('subcategory_id')
+                                {{ $message }}
+                            @enderror
+                        </div>
                     </div>
                 </div>
                 
@@ -53,15 +63,25 @@
                 <div class="mb-3">
                     <label class="form-label">Child Category Name</label>
                     <input type="text" name="child_category_name" class="form-control" placeholder="Child Category Name" value="{{ isset($childcategories) ? $childcategories->child_category_name : '' }}">
+                    <div class="error">
+                        @error('child_category_name')
+                            {{ $message }}
+                        @enderror
+                    </div>
                 </div>
 
                 <div class="mb-3">
                     <label class="form-label">Child Category Slug</label>
                     <input type="text" name="child_category_slug" class="form-control" placeholder="Child Category Slug" value="{{ isset($childcategories) ? $childcategories->child_category_slug : '' }}">
+                    <div class="error">
+                        @error('child_category_slug')
+                            {{ $message }}
+                        @enderror
+                    </div>
                 </div>
 
                 <div class="d-flex justify-content-between align-items-center">
-                    <button type="reset" class="btn btn-light">Cancel</button>
+                    <a type="reset" href="{{route('child_categories.index')}}" class="btn btn-light">Cancel</a>
                     <button type="submit" class="btn btn-primary">
                         @if(isset($childcategories))
                             Update <i class="ph-pencil-line ms-2"></i>

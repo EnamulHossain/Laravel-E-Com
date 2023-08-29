@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\BrandRequest;
 use App\Models\Brand;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -44,13 +45,19 @@ class BrandController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(BrandRequest $request)
     {
-        Brand::create([
-            'brand_name'=>$request->input('brand_name'),
-            'brand_slug'=>$request->input('brand_slug'),
-            'brand_logo'=>$request->input('brand_logo'),
-            'front_page'=>$request->input('front_page'),
+        $validatedData = $request->validated();
+
+        if ($request->hasFile('brand_logo')) {
+            $imagePath = $request->file('brand_logo')->store('brand_logos', 'public');
+            $validatedData['brand_logo'] = $imagePath;
+        }
+    
+        $brand = Brand::create([
+            'brand_name' => $validatedData['brand_name'],
+            'brand_slug' => $validatedData['brand_slug'],
+            'brand_logo' => $validatedData['brand_logo'],
         ]);
         return redirect()->route('brand.index')->with('success', 'Brand created successfully!');
     }
@@ -79,13 +86,19 @@ class BrandController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Brand $brand)
+    public function update(BrandRequest $request, Brand $brand)
     {
+        $validatedData = $request->validated();
+
+        if ($request->hasFile('brand_logo')) {
+            $imagePath = $request->file('brand_logo')->store('brand_logos', 'public');
+            $validatedData['brand_logo'] = $imagePath;
+        }
+        
         $brand->update([
-            'brand_name'=>$request->input('brand_name'),
-            'brand_slug'=>$request->input('brand_slug'),
-            'brand_logo'=>$request->input('brand_logo'),
-            'front_page'=>$request->input('front_page'),
+            'brand_name' => $validatedData['brand_name'],
+            'brand_slug' => $validatedData['brand_slug'],
+            'brand_logo' => $validatedData['brand_logo'],
         ]);
         return redirect()->route('brand.index')->with('success', 'Brand created successfully!');
     }

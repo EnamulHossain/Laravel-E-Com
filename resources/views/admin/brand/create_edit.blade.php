@@ -10,7 +10,7 @@
         </div>
 
         <div class="card-body">
-            <form action="{{ isset($brand) ? route('brand.update', $brand->id) : route('brand.store') }}" method="POST">
+            <form action="{{ isset($brand) ? route('brand.update', $brand->id) : route('brand.store') }}" method="POST" enctype="multipart/form-data">
                 @csrf
                 @if(isset($category))
                     @method('PUT')
@@ -19,20 +19,35 @@
                 <div class="mb-3">
                     <label class="form-label">Brand Name</label>
                     <input type="text" name="brand_name" class="form-control" placeholder="Brand Name" value="{{ isset($brand) ? $brand->brand_name : '' }}">
+                    <div class="error">
+                        @error('brand_name')
+                            {{ $message }}
+                        @enderror
+                    </div>
                 </div>
 
                 <div class="mb-3">
                     <label class="form-label">Brand Slug</label>
                     <input type="text" name="brand_slug" class="form-control" placeholder="Brand Slug" value="{{ isset($brand) ? $brand->brand_slug : '' }}">
+                    <div class="error">
+                        @error('brand_slug')
+                            {{ $message }}
+                        @enderror
+                    </div>
                 </div>
 
                 <div class="mb-3">
-                    <label class="form-label">Brand Slug</label>
-                    <input type="text" name="brand_logo" class="form-control" placeholder="Brand Logo" value="{{ isset($brand) ? $brand->brand_logo : '' }}">
+                    <label class="form-label">Brand Logo</label>
+                    <input type="file" name="brand_logo" class="form-control">
+                </div>
+                <div class="error">
+                    @error('brand_logo')
+                        {{ $message }}
+                    @enderror
                 </div>
 
                 <div class="d-flex justify-content-between align-items-center">
-                    <button type="reset" class="btn btn-light">Cancel</button>
+                    <a type="reset" href="{{route('brand.index')}}" class="btn btn-light">Cancel</a>
                     <button type="submit" class="btn btn-primary">
                         @if(isset($brand))
                             Update <i class="ph-pencil-line ms-2"></i>

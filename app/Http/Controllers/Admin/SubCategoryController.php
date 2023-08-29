@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\SubCategoryRequest;
 use App\Models\Category;
 use App\Models\SubCategory;
 use Illuminate\Http\Request;
@@ -35,29 +36,16 @@ class SubCategoryController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(SubCategoryRequest $request)
     {
-        // Define the validation rules
-        $rules = [
-            'category_id' => 'required|exists:categories,id',
-            'subcategory_name' => 'required|string|max:255',
-            'subcategory_slug' => 'required|string|max:255|unique:sub_categories,category_slug',
-        ];
-
-        // Validate the request data
-        $validatedData = $request->all();
-
-        // Create a new SubCategory instance with the validated data
         $subcategory = new SubCategory([
-            'category_id' => $validatedData['category_id'],
-            'subcategory_name' => $validatedData['subcategory_name'],
-            'subcategory_slug' => $validatedData['subcategory_slug'],
+            'category_id' => $request->category_id,
+            'subcategory_name' => $request->subcategory_name,
+            'subcategory_slug' => $request->subcategory_slug,
         ]);
-
-        // Save the new subcategory record into the database
+    
         $subcategory->save();
 
-        // Redirect the user back to the subcategories index page with a success message
         return redirect()->route('subcategory.index')->with('success', 'Subcategory created successfully!');
     }
 
@@ -74,7 +62,6 @@ class SubCategoryController extends Controller
      */
     public function edit(SubCategory $subcategory)
     {
-        // Fetch all categories to populate the select dropdown
         $categories = Category::all();
 
         return view('admin.subcategory.create_edit', compact('subcategory', 'categories'));
@@ -82,19 +69,21 @@ class SubCategoryController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, SubCategory $subcategory)
+    public function update(SubCategoryRequest $request, SubCategory $subcategory)
     {
+        if ($request->fails()) {
+            return redirect()->back()->withErrors($request->errors())->withInput();
+        }
+
         $validatedData = $request->all();
 
-        // Update the SubCategory instance with the validated data
         $subcategory->update([
             'category_id' => $validatedData['category_id'],
             'subcategory_name' => $validatedData['subcategory_name'],
             'subcategory_slug' => $validatedData['subcategory_slug'],
         ]);
 
-    // Redirect the user back to the subcategories index page with a success message
-    return redirect()->route('subcategory.index')->with('success', 'Subcategory updated successfully!');
+        return redirect()->route('subcategory.index')->with('success', 'Subcategory updated successfully!');
     }
 
     /**
