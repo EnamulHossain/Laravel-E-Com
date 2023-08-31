@@ -21,6 +21,8 @@ class Product extends Model
         'unit',
         'tags',
         'video',
+        'color',
+        'size',
         'purchase_price',
         'sell_price',
         'discount_price',
@@ -41,7 +43,6 @@ class Product extends Model
 
     protected $casts = [
         'tags' => 'array',
-        'images' => 'array',
         'feature' => 'boolean',
         'today_deal' => 'boolean',
         'status' => 'boolean',

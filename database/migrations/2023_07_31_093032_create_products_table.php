@@ -17,10 +17,12 @@ return new class extends Migration
             $table->unsignedBigInteger('subcategory_id');
             $table->unsignedBigInteger('childcategory_id')->nullable();
             $table->unsignedBigInteger('brand_id')->nullable();
-            $table->unsignedBigInteger('pickup_points_id')->nullable();
+            // $table->unsignedBigInteger('pickup_points_id')->nullable();
             $table->string('name');
             $table->string('slug');
             $table->string('code');
+            $table->string('color');
+            $table->integer('size');
             $table->string('unit')->nullable();
             $table->string('tags')->nullable();
             $table->string('video')->nullable();

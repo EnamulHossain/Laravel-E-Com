@@ -3,6 +3,8 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\ProductRequest;
+use Illuminate\Support\Str;
 use App\Models\Brand;
 use App\Models\Category;
 use App\Models\ChildCategory;
@@ -50,59 +52,53 @@ class ProductController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(ProductRequest $request)
     {
-        dd($request);
-        $validatedData = $request->validate([
-            'category_id' => 'required|integer',
-            'subcategory_id' => 'nullable|integer',
-            'childcategory_id' => 'nullable|integer',
-            'brand_id' => 'required|integer',
-            'pickup_points_id' => 'required|integer',
-            'name' => 'required|string|max:255',
-            'slug' => 'required|string|max:255|unique:products',
-            'code' => 'required|string|max:255',
-            'unit' => 'required|string|max:50',
-            'tags' => 'nullable|string|max:255',
-            'video' => 'nullable|string|max:255',
-            'price' => 'required|numeric',
-            'discount_price' => 'nullable|numeric',
-            'quantity' => 'required|integer',
-            'description' => 'nullable|string',
-            'thumbnail' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048', 
-            'images' => 'nullable|array',
-            'images.*' => 'image|mimes:jpeg,png,jpg,gif|max:2048',
-            'feature' => 'required|boolean',
-            'today_deal' => 'required|boolean',
-            'status' => 'required|boolean',
-            'sku' => 'nullable|string|max:255',
-            'flash_deal_id' => 'nullable|integer',
-            'cash_on_delivery' => 'required|boolean',
-            'warehouse' => 'required|string|max:255',
-            'admin_id' => 'required|integer',
-        ]);
+        try {
+            $product = new Product();
+            $product->name = $request->input('name');
+            $product->slug = Str::slug($product->name);
+            $product->code = $request->input('code');
+            $product->category_id = $request->input('category_id');
+            $product->subcategory_id = $request->input('subcategory_id');
+            $product->childcategory_id = $request->input('childcategory_id');
+            $product->brand_id = $request->input('brand_id');
+            $product->tags = $request->input('tags');
+            $product->purchase_price = $request->input('purchase_price');
+            $product->description = $request->input('description');
+            $product->sell_price = $request->input('sell_price');
+            $product->dicount_price = $request->input('discount_price');
+            $product->quantity = $request->input('quantity');
+            $product->stock = $request->input('stock');
+            $product->color = $request->input('color');
+            $product->size = $request->input('size');
+            $product->feature = $request->input('featured');
+            $product->today_deal = $request->input('deal');
+            $product->status = $request->input('status');
 
-        // Handle thumbnail upload and storage
-        if ($request->hasFile('thumbnail')) {
-            $thumbnailPath = $request->file('thumbnail')->store('products/thumbnails', 'public');
-            $validatedData['thumbnail'] = $thumbnailPath;
-        }
-
-        // Handle images upload and storage
-        if ($request->hasFile('images')) {
-            $imagePaths = [];
-            foreach ($request->file('images') as $image) {
-                $imagePath = $image->store('products/images', 'public');
-                $imagePaths[] = $imagePath;
+            // Handle thumbnail upload and storage
+            if ($request->hasFile('thumbnail')) {
+                $thumbnailPath = $request->file('thumbnail')->store('products/thumbnails', 'public');
+                $product->thumbnail = $thumbnailPath;
             }
-            $validatedData['images'] = $imagePaths;
+
+            // Handle images upload and storage
+            if ($request->hasFile('images')) {
+                $imagePaths = [];
+                foreach ($request->file('images') as $image) {
+                    $imagePath = $image->store('products/images', 'public');
+                    $imagePaths[] = $imagePath;
+                }
+                $product->images = $imagePaths;
+            }
+
+            // Save the product
+            $product->save();
+
+            return redirect()->route('product.index')->with('success', 'Product created successfully.');
+        } catch (\Exception $e) {
+            return redirect()->back()->with('error', 'An error occurred while creating the product.');
         }
-
-        $product = new Product($validatedData);
-        $product->save();
-
-        return redirect()->route('products.index')
-            ->with('success', 'Product created successfully.');
     }
 
     /**
