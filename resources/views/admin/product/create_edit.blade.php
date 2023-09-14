@@ -10,7 +10,7 @@
                 </ul>
             </div>
         @endif
-        <form action="{{ route('product.store') }}" method="POST">
+        <form action="{{ route('product.store') }}" method="POST" enctype="multipart/form-data">
             @csrf
             <div class="">
                 <div class="d-flex gap-8">
@@ -216,7 +216,7 @@
                             <div class="">
                                 <div class="">
                                     <label class="form-label">Description</label>
-                                    <textarea cols="93" class="form-control" placeholder="Product Description"></textarea>
+                                    <textarea cols="93" name="description" class="form-control" placeholder="Product Description"></textarea>
                                 </div>
                             </div>
 
@@ -243,7 +243,7 @@
                                                     d="M13 13h3a3 3 0 0 0 0-6h-.025A5.56 5.56 0 0 0 16 6.5 5.5 5.5 0 0 0 5.207 5.021C5.137 5.017 5.071 5 5 5a4 4 0 0 0 0 8h2.167M10 15V6m0 0L8 8m2-2 2 2" />
                                             </svg>
                                         </div>
-                                        <input id="file" type="file" class="hidden" />
+                                        <input id="file" name="thumbnail" type="file" class="hidden" />
                                     </label>
                                 </div>
                             </div>
@@ -251,7 +251,7 @@
                             <div class="row mb-3 mt-2">
                                 <label class="form-label">More image</label>
                                 <div class="">
-                                    <input type="file" class="form-control" multiple>
+                                    <input type="file" name="images[]" class="form-control" multiple>
                                 </div>
                             </div>
 
@@ -312,8 +312,8 @@
 
                     </div>
                 </div>
+                <button class="btn btn-info m-4" type="submit">submit</button>
             </div>
-            <button class="btn btn-info" type="submit">submit</button>
         </form>
     </div>
 @endsection
